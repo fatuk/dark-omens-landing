@@ -1,0 +1,95 @@
+/* Страницы хроник партий (chronicles.html, chronicle.html). Палитра — как у
+   index.html, чтобы страницы читались продолжением лендинга. */
+:root {
+  --bg: #0a0c0b;
+  --bg-2: #10130f;
+  --ink: #e9e4d3;
+  --muted: #9c977f;
+  --gold: #b8935a;
+  --gold-dim: #8b6f3e;
+  --eye: #7bbd45;
+  --blood: #8a2f2a;
+  --line: rgba(233, 228, 211, 0.1);
+  --maxw: 860px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  padding-inline: 16px;
+}
+a { color: var(--gold); }
+img { display: block; max-width: 100%; }
+.wrap { max-width: var(--maxw); margin: 0 auto; }
+
+header {
+  position: sticky; top: 0; z-index: 20;
+  margin-inline: -16px; padding-inline: 16px;
+  backdrop-filter: blur(8px);
+  background: linear-gradient(to bottom, rgba(10, 12, 11, 0.92), rgba(10, 12, 11, 0.4));
+  border-bottom: 1px solid var(--line);
+}
+.nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.brand { font-size: 1.05rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); text-decoration: none; }
+.nav a.back { font-size: 0.82rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+.nav a.back:hover { color: var(--ink); }
+
+main { padding-block: 3rem 5rem; }
+.eyebrow { color: var(--muted); font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; }
+h1 { font-weight: 400; font-size: clamp(1.9rem, 4vw, 2.8rem); line-height: 1.15; color: var(--gold); margin-top: 0.4rem; }
+.tagline { color: var(--muted); font-style: italic; margin-top: 0.6rem; font-size: 1.05rem; }
+.meta { display: flex; flex-wrap: wrap; gap: 0.5rem 1.4rem; margin-top: 1.2rem; color: var(--muted); font-size: 0.85rem; letter-spacing: 0.04em; }
+.meta b { color: var(--ink); font-weight: 400; }
+.outcome-victory { color: var(--eye); }
+.outcome-defeat { color: #c8574e; }
+
+.rule { height: 1px; background: linear-gradient(90deg, transparent, var(--gold-dim), transparent); margin: 2.2rem 0; }
+
+.cast { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1.2rem; }
+.card { text-align: center; }
+.card .pic {
+  width: 100%; aspect-ratio: 1; max-width: 100%; border-radius: 4px; overflow: hidden;
+  border: 1px solid var(--gold-dim); background: var(--bg-2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+.card .pic img { width: 100%; height: 100%; object-fit: cover; }
+.card.dead .pic { filter: grayscale(1) brightness(0.65); border-color: var(--blood); }
+.card .name { margin-top: 0.6rem; color: var(--gold); font-size: 0.98rem; }
+.card .sub { color: var(--muted); font-size: 0.78rem; }
+.card .fate { color: var(--ink); font-size: 0.82rem; margin-top: 0.4rem; opacity: 0.85; }
+.card.dead .name::after { content: " †"; color: var(--blood); }
+
+.chapter { margin-top: 2.4rem; }
+.chapter h2 { font-weight: 400; font-size: 1.45rem; color: var(--gold); }
+.chapter .rounds { color: var(--muted); font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; }
+.prose { margin-top: 0.8rem; font-size: 1.08rem; }
+.prose p + p { margin-top: 1rem; }
+.prologue .prose::first-letter, .chapter:first-of-type .prose::first-letter {
+  float: left; font-size: 3.2rem; line-height: 0.85; padding: 0.15rem 0.5rem 0 0; color: var(--gold);
+}
+.epilogue .prose { font-style: italic; color: var(--ink); }
+
+.monsters { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1rem; }
+.monster { display: flex; align-items: center; gap: 0.6rem; border: 1px solid var(--line); border-radius: 4px; padding: 0.35rem 0.7rem 0.35rem 0.35rem; font-size: 0.85rem; color: var(--muted); }
+.monster img { width: 42px; height: 42px; object-fit: cover; border-radius: 3px; }
+.monster b { color: var(--ink); font-weight: 400; }
+
+.list { display: grid; gap: 1rem; margin-top: 2rem; }
+.entry { display: grid; grid-template-columns: auto 1fr; gap: 1.2rem; align-items: center; padding: 1.1rem; border: 1px solid var(--line); border-radius: 4px; text-decoration: none; color: inherit; background: var(--bg-2); transition: border-color 0.2s; }
+.entry:hover { border-color: var(--gold-dim); }
+.entry .faces { display: flex; }
+.entry .faces img { width: 56px; height: 56px; object-fit: cover; border-radius: 50%; border: 2px solid var(--bg); margin-left: -14px; }
+.entry .faces img:first-child { margin-left: 0; }
+.entry .faces img.dead { filter: grayscale(1) brightness(0.6); }
+.entry h3 { font-weight: 400; color: var(--gold); font-size: 1.2rem; }
+.entry .tag { color: var(--muted); font-style: italic; font-size: 0.92rem; }
+.entry .meta { margin-top: 0.4rem; }
+
+.state { color: var(--muted); padding: 3rem 0; text-align: center; }
+@media (max-width: 520px) {
+  .entry { grid-template-columns: 1fr; }
+  .cast { grid-template-columns: repeat(2, 1fr); }
+}
