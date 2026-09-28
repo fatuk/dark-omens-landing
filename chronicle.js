@@ -54,9 +54,15 @@ function plural(n, forms) {
   return forms[2];
 }
 
+// ?api= подставляем только для локального бэкенда (разработка). Иначе любой
+// мог бы раздать ссылку dark-omens.world/chronicle.html?api=https://чужой-сервер
+// и подменить содержимое хроник на легитимном домене.
+const API_LOCAL_RE = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/;
+
 function apiBase() {
   const q = new URLSearchParams(location.search).get("api");
-  return (q || API_DEFAULT).replace(/\/$/, "");
+  const base = q && API_LOCAL_RE.test(q.replace(/\/$/, "")) ? q : API_DEFAULT;
+  return base.replace(/\/$/, "");
 }
 
 function kebab(s) {
