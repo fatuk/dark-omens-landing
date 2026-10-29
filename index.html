@@ -538,6 +538,178 @@
         box-shadow: 0 20px 80px rgba(0, 0, 0, 0.8);
       }
 
+      /* ── ledger (сводка партий, stats.js) ── */
+      .lg-tiles {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        margin-top: 3rem;
+      }
+      .lg-tile,
+      .lg-panel {
+        background: linear-gradient(
+          160deg,
+          rgba(255, 255, 255, 0.035),
+          rgba(255, 255, 255, 0)
+        );
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        padding: 1.4rem 1.4rem 1.3rem;
+      }
+      .lg-big {
+        font-size: clamp(1.7rem, 4vw, 2.5rem);
+        line-height: 1.1;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+      }
+      .lg-label {
+        color: var(--gold);
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-size: 0.72rem;
+        margin-top: 0.5rem;
+      }
+      .lg-sub {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-top: 0.2rem;
+      }
+      .lg-tile .lg-track {
+        margin-top: 0.8rem;
+      }
+      .lg-panels {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        margin-top: 1rem;
+      }
+      @media (max-width: 720px) {
+        .lg-panels {
+          grid-template-columns: 1fr;
+        }
+      }
+      .lg-panel.wide {
+        grid-column: 1 / -1;
+      }
+      .lg-panel h3 {
+        font-weight: 400;
+        font-size: 1.15rem;
+        margin-bottom: 1rem;
+      }
+      .lg-row + .lg-row {
+        margin-top: 0.85rem;
+      }
+      .lg-row-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        font-size: 0.95rem;
+        margin-bottom: 0.3rem;
+      }
+      .lg-row-val {
+        color: var(--muted);
+        font-variant-numeric: tabular-nums;
+      }
+      .lg-track {
+        height: 6px;
+        border-radius: 3px;
+        background: rgba(233, 228, 211, 0.08);
+        overflow: hidden;
+      }
+      .lg-fill {
+        height: 100%;
+        border-radius: 3px;
+        background: var(--gold);
+      }
+      .lg-invs {
+        display: grid;
+        gap: 1rem 1.5rem;
+        grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      }
+      .lg-inv {
+        display: flex;
+        align-items: center;
+        gap: 0.9rem;
+      }
+      .lg-face {
+        flex: none;
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 1px solid var(--gold-dim);
+        display: grid;
+        place-items: center;
+        color: var(--gold);
+        font-size: 1.3rem;
+        background: var(--bg-2);
+      }
+      .lg-face img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .lg-inv-name {
+        font-size: 1.02rem;
+      }
+      .lg-inv-sub {
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+      .lg-cols {
+        display: flex;
+        gap: 0.6rem;
+        align-items: stretch;
+        height: 150px;
+      }
+      .lg-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-width: 0;
+      }
+      .lg-col-val {
+        color: var(--muted);
+        font-size: 0.85rem;
+        min-height: 1.3em;
+        font-variant-numeric: tabular-nums;
+      }
+      .lg-col-bar-wrap {
+        flex: 1;
+        width: 100%;
+        max-width: 44px;
+        display: flex;
+        align-items: flex-end;
+        border-bottom: 1px solid var(--line);
+      }
+      .lg-col-bar {
+        width: 100%;
+        min-height: 2px;
+        border-radius: 4px 4px 0 0;
+        background: var(--gold);
+      }
+      .lg-col-bar.empty {
+        background: transparent;
+      }
+      .lg-col-label {
+        color: var(--muted);
+        font-size: 0.8rem;
+        margin-top: 0.4rem;
+        white-space: nowrap;
+      }
+      .lg-more {
+        margin-top: 2rem;
+      }
+      .lg-more a {
+        color: var(--gold);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(184, 147, 90, 0.4);
+      }
+      .lg-more a:hover {
+        border-bottom-color: var(--gold);
+      }
+
       .fade {
         opacity: 0;
         transform: translateY(24px);
@@ -852,6 +1024,32 @@
         </div>
       </section>
 
+      <section class="block wrap fade" id="ledger" hidden>
+        <p class="kicker" data-ru="Летопись" data-en="The ledger">Летопись</p>
+        <h2
+          data-ru="Что помнят архивы"
+          data-en="What the archives remember"
+        >
+          Что помнят архивы
+        </h2>
+        <p
+          class="lead"
+          data-ru="Сводка по всем завершённым партиям: кто выходит против Древних и чем это кончается."
+          data-en="A tally of every finished game: who stands against the Ancient Ones, and how it ends."
+        >
+          Сводка по всем завершённым партиям: кто выходит против Древних и чем это кончается.
+        </p>
+        <div id="ledger-body"></div>
+        <p class="lg-more">
+          <a
+            href="chronicles.html"
+            data-ru="Читать хроники партий →"
+            data-en="Read the chronicles →"
+            >Читать хроники партий →</a
+          >
+        </p>
+      </section>
+
       <section class="quote fade">
         <div class="wrap">
           <blockquote
@@ -949,6 +1147,8 @@
         try {
           localStorage.setItem("lang", lang);
         } catch (e) {}
+        // динамические блоки (stats.js) перерисовываются под язык сами
+        document.dispatchEvent(new CustomEvent("langchange", { detail: lang }));
       }
 
       // выбор языка: сохранённый → язык браузера → ru
@@ -997,5 +1197,6 @@
         lbImg.src = "";
       });
     </script>
+    <script src="stats.js"></script>
   </body>
 </html>
